@@ -25,17 +25,17 @@ extras_require = {
 
 
 requires = [
-    'Django==1.11.4',
-    'dj-database-url==0.3.0',
-    'django-braces==1.8.1',
-    'django-configurations==1.0',
-    'django-crispy-forms==1.5.2',
-    'django-grappelli==2.10.1',
-    'django-model-utils==2.4',
+    'Django==2.0.2',
+    'dj-database-url==0.4.2',
+    'django-braces==1.12.0',
+    'django-configurations==2.0',
+    'django-crispy-forms==1.7.0',
+    'django-grappelli==2.11.1',
+    'django-model-utils==3.1.1',
     'envdir==0.7',
-    'psycopg2==2.6.1',
-    'pytz==2015.7',
-    'rules==1.1.1',
+    'psycopg2==2.7.4',
+    'pytz==2018.3',
+    'rules==1.3',
 ]
 
 
