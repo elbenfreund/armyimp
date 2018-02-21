@@ -30,7 +30,7 @@ class WeaponProfile(models.Model):
     """
 
     ITEM_CATEGORIES = (('Ranged', _("Ranged")), ('Melee', _("Melee")))
-    WEAPON_PROFILE_ATTACK_TYPES = ('Melee', 'Pistol', 'Rapid Fire', 'Assault', 'Heavy', 'Grenade')
+    ATTACK_TYPES = ('Melee', 'Pistol', 'Rapid Fire', 'Assault', 'Heavy', 'Grenade')
     DIE_TYPES = (3, 6)
 
     name = models.CharField(max_length=100, unique=True)
@@ -39,7 +39,7 @@ class WeaponProfile(models.Model):
     min_range = models.PositiveIntegerField(null=True, blank=True)
     max_range = models.PositiveIntegerField(null=True, blank=True)
     attack_type = models.CharField(
-        choices=[(each, each) for each in WEAPON_PROFILE_ATTACK_TYPES],
+        choices=[(each, each) for each in ATTACK_TYPES],
         max_length=20, help_text=_("This specifies which attack specific extra rules apply.")
     )
     number_of_attacks = models.CharField(max_length=5, null=False, blank=False)
