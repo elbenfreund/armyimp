@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 
 ITEM_CATEGORIES = (('Ranged', _("Ranged")), ('Melee', _("Melee")))
-WARGEAR_LISTS = ('Ranged', _("Special"), 'Heavy', _("Melee"), _("Vehicle Equipment"))
+WARGEAR_LISTS = (_("Ranged"), _("Special"), _("Heavy"), _("Melee"), _("Vehicle Equipment"))
 WEAPON_PROFILE_ATTACK_TYPES = {
     'Melee': '',
     'Pistol': '',
