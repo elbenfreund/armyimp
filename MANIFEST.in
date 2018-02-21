@@ -24,3 +24,4 @@ prune armyimp/media
 include armyimp/media/.gitkeep
 prune armyimp/static_root
 include armyimp/static_root/.gitkeep
+prune armyimp/apps/w40k/fixtures
