@@ -243,7 +243,7 @@ class WargearList(models.Model):
         an item from the ranged weapons list').
     """
 
-    name = models.CharField(choices=[(each, each) for each in WARGEAR_LISTS], max_length=10)
+    name = models.CharField(choices=[(each, each) for each in WARGEAR_LISTS], max_length=60)
     organization = models.ForeignKey('Organization', on_delete=models.CASCADE)
     items = models.ManyToManyField('Item', related_name='wargear_lists')
 
