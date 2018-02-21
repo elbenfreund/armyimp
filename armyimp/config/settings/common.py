@@ -188,6 +188,8 @@ class Common(Configuration):
         'django.contrib.admindocs',
         'crispy_forms',
         'rules.apps.AutodiscoverRulesConfig',
+        'nested_admin',
+        'armyimp.apps.w40k',
     )
 
     CACHES = values. DictValue({
