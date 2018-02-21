@@ -3,7 +3,6 @@ from collections import namedtuple
 from django.db import models
 from django.utils.translation import ugettext as _
 
-
 Damagerange = namedtuple('Damagerange', ('min', 'max'))
 
 
@@ -322,10 +321,10 @@ class Unit(models.Model):
     Besides its own direct attributes units are also a collection of (default) ``UnitModel``s
     that govern what items Models in a unit may carry.
     """
+
     UNIT_CATEGORIES = (('HQ', _("HQ")), ('Elites', _("Elites")), ('Troops', _("Troops")),
         ('Fast Attack', _("Fast Attack")), ('Heavy Support', _("Heavy Support")),
         ('Flyers', _("Flyers")), ('Dedicated Transport', _("Dedicated Transport")))
-
 
     name = models.CharField(max_length=100, unique=True)
     organization = models.ForeignKey('Organization', related_name='units',
