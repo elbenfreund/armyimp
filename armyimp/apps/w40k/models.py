@@ -403,3 +403,63 @@ class FactionKeyword(models.Model):
     def __str__(self):
         """Return string representation."""
         return self.name
+
+
+class Army(models.Model):
+    """A particular army."""
+
+    name = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        """Return string representation."""
+        return self.name
+
+
+class ArmyUnit(models.Model):
+    """A particular unit that is part of an army."""
+
+    army = models.ForeignKey("Army", related_name='units', on_delete=models.CASCADE,
+        help_text=_("The army this unit is part of."))
+    name = models.CharField(max_length=100, blank=True, unique=True)
+    unit = models.ForeignKey("Unit", on_delete=models.CASCADE,
+        help_text=_("The 'unittemplate' this unit is an instance of."))
+    models = models.ManyToManyField('ArmyModel',
+        help_text=_("The particular models (e.g. configurations present in this unit."))
+
+    def __str__(self):
+        """Return string representation."""
+        return '{s.unit.name} ({s.army.name})'.format(s=self)
+
+
+class ArmyModel(models.Model):
+    """A particular model (e.g. configuration) that is part of a specific unit."""
+
+    unit = models.ForeignKey("ArmyUnit", on_delete=models.CASCADE,
+        help_text=_("The specific army unit this model is part of."))
+    model = models.ForeignKey("UnitModel", on_delete=models.CASCADE,
+        help_text=_("The 'generic unit model' that is the 'template' for this specific model."))
+    itemslots = models.ManyToManyField('Item', through='ArmyModelItemSlot',
+        help_text=_("The specific itemslot configuration for this model."))
+
+    def __str__(self):
+        """Return string representation."""
+        return '{s.model.name} ({s.unit.name})'.format(s=self)
+
+
+class ArmyModelItemSlot(models.Model):
+    """
+    Specific itemslot configuration for a given ``ArmyModel`` instance.
+
+    Note:
+        This is mainly needed in order to account for slots that contain more than one (identical)
+        item.
+    """
+
+    item = models.ForeignKey('Item', on_delete=models.CASCADE, help_text=_("Equipped item(s)."))
+    army_model = models.ForeignKey('ArmyModel', on_delete=models.CASCADE)
+    amount = models.IntegerField(default=1,
+        help_text=_("Amount of identical! items in this slot."))
+
+    def __str__(self):
+        """Return string representation."""
+        return 'ArmyModelItemSlot with PK: {s.pk}'.format(s=self)

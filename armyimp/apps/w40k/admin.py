@@ -56,6 +56,31 @@ class UnitAdmin(nested_admin.NestedModelAdmin):
     inlines = (UnitModelInline,)
 
 
+# Army related classes
+class ArmyModelItemSlotInline(nested_admin.NestedTabularInline):
+    """``ArmyModelItemSlot`` admin inline representation."""
+
+    model = models.ArmyModelItemSlot
+    extra = 0
+
+
+class ArmyModelInline(nested_admin.NestedTabularInline):
+    """``ArmyModel`` admin inline representation."""
+
+    model = models.ArmyModel
+    fields = ('model',)
+    inlines = (ArmyModelItemSlotInline,)
+    extra = 0
+
+
+class ArmyUnitAdmin(nested_admin.NestedModelAdmin):
+    """``ArmyUnit`` admin representation."""
+
+    fields = ('army', 'name', 'unit',)
+    model = models.ArmyUnit
+    inlines = (ArmyModelInline,)
+
+
 admin.site.register(models.UnitModel, UnitModelAdmin)
 admin.site.register(models.Unit, UnitAdmin)
 admin.site.register(models.Item, ItemAdmin)
@@ -68,3 +93,8 @@ admin.site.register(models.OrganizationItemIntermediate)
 admin.site.register(models.FactionKeyword)
 admin.site.register(models.UnitKeyword)
 admin.site.register(models.ModelProfile)
+
+# Army related register calls
+admin.site.register(models.ArmyUnit, ArmyUnitAdmin)
+
+admin.site.register(models.Army)
