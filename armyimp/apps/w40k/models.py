@@ -3,24 +3,6 @@ from collections import namedtuple
 from django.db import models
 from django.utils.translation import ugettext as _
 
-ITEM_CATEGORIES = (('Ranged', _("Ranged")), ('Melee', _("Melee")))
-WARGEAR_LISTS = (_("Ranged"), _("Special"), _("Heavy"), _("Melee"), _("Vehicle Equipment"))
-WEAPON_PROFILE_ATTACK_TYPES = {
-    'Melee': '',
-    'Pistol': '',
-    'Rapid Fire': '',
-    'Assault': '',
-    'Heavy': '',
-    'Grenade': '',
-}
-UNIT_CATEGORIES = (('HQ', _("HQ")), ('Elites', _("Elites")), ('Troops', _("Troops")),
-    ('Fast Attack', _("Fast Attack")), ('Heavy Support', _("Heavy Support")),
-    ('Flyers', _("Flyers")), ('Dedicated Transport', _("Dedicated Transport")))
-
-# We just need to specify the amount of max values, the rest can be deducted
-# from there.
-DIE_TYPES = (3, 6)
-
 
 Damagerange = namedtuple('Damagerange', ('min', 'max'))
 
@@ -46,6 +28,17 @@ class WeaponProfile(models.Model):
 
         Strength_value/multiplier/user should be mutually exclusive.
     """
+
+    ITEM_CATEGORIES = (('Ranged', _("Ranged")), ('Melee', _("Melee")))
+    WEAPON_PROFILE_ATTACK_TYPES = {
+        'Melee': '',
+        'Pistol': '',
+        'Rapid Fire': '',
+        'Assault': '',
+        'Heavy': '',
+        'Grenade': '',
+    }
+    DIE_TYPES = (3, 6)
 
     name = models.CharField(max_length=100, unique=True)
     weapon = models.ForeignKey('Item', related_name='weapon_profiles', on_delete=models.CASCADE)
@@ -243,6 +236,8 @@ class WargearList(models.Model):
         an item from the ranged weapons list').
     """
 
+    WARGEAR_LISTS = (_("Ranged"), _("Special"), _("Heavy"), _("Melee"), _("Vehicle Equipment"))
+
     name = models.CharField(choices=[(each, each) for each in WARGEAR_LISTS], max_length=60)
     organization = models.ForeignKey('Organization', on_delete=models.CASCADE)
     items = models.ManyToManyField('Item', related_name='wargear_lists')
@@ -334,6 +329,10 @@ class Unit(models.Model):
     Besides its own direct attributes units are also a collection of (default) ``UnitModel``s
     that govern what items Models in a unit may carry.
     """
+    UNIT_CATEGORIES = (('HQ', _("HQ")), ('Elites', _("Elites")), ('Troops', _("Troops")),
+        ('Fast Attack', _("Fast Attack")), ('Heavy Support', _("Heavy Support")),
+        ('Flyers', _("Flyers")), ('Dedicated Transport', _("Dedicated Transport")))
+
 
     name = models.CharField(max_length=100, unique=True)
     organization = models.ForeignKey('Organization', related_name='units',
