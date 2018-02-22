@@ -54,30 +54,25 @@
 
   <div class="container">
     <div>
-      
+      {%block main %}{% endblock main%}
+
     </div>
 
     <hr>
 
     <footer>
+    {% block footer %}
       <p>&copy; armyimp 2018</p>
+    {% endblock footer %}
     </footer>
-  </div> <!-- /container -->
-    <script src="{% static "js/vendor/jquery-1.11.0.min.js" %}"></script>
-
+  </div>
+		<script src="{% static "js/vendor/jquery-1.11.0.min.js" %}"></script>
     <script src="{% static "js/vendor/bootstrap.min.js" %}"></script>
 
     <script src="{% static "js/main.js" %}"></script>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-      e.src='//www.google-analytics.com/analytics.js';
-      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-      ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
+    {% block extra_js %}{% endblock extra_js%}
+
     <!-- armyimp 0.1.0 powered by Django {{ django_version }} -->
   </body>
 </html>
