@@ -2,6 +2,7 @@ from collections import namedtuple
 
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.urls import reverse
 
 Damagerange = namedtuple('Damagerange', ('min', 'max'))
 
@@ -420,6 +421,10 @@ class ArmyUnit(models.Model):
     def __str__(self):
         """Return string representation."""
         return '{s.unit.name} ({s.army.name})'.format(s=self)
+
+    def get_absolute_url(self):
+        """Return this instances canonical url."""
+        return reverse('w40k:armyunit_detail', kwargs={'pk': self.pk})
 
 
 class ArmyModel(models.Model):
