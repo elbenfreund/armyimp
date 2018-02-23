@@ -3,7 +3,6 @@ from django.views import generic as generic_views
 
 from . import views
 
-
 app_name = 'w40k'
 
 urlpatterns = [

@@ -1,8 +1,8 @@
 from collections import namedtuple
 
 from django.db import models
-from django.utils.translation import ugettext as _
 from django.urls import reverse
+from django.utils.translation import ugettext as _
 
 Damagerange = namedtuple('Damagerange', ('min', 'max'))
 
