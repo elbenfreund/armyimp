@@ -14,12 +14,18 @@ env:
 before_install:
   - pip install codecov
 
+before-script:
+  - psql -U postgres -c "CREATE USER armyimp WITH CREATEUSER PASSWORD 'foobar';"
+  - psql -U postgres -c "ALTER USER armyimp CREATEDB;"
+
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
   - pip install -U tox codecov
 
 # command to run tests, e.g. python setup.py test
 script:
+  - psql -U postgres -c "CREATE USER armyimp WITH CREATEUSER PASSWORD 'foobar';"
+  - psql -U postgres -c "ALTER USER armyimp CREATEDB;"
   - make test-all
 
 after_success:
