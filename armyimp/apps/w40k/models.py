@@ -356,6 +356,10 @@ class Unit(models.Model):
         """Return string representation."""
         return self.name
 
+    def get_absolute_url(self):
+        """Return this instances canonical url."""
+        return reverse('w40k:unit_detail', kwargs={'pk': self.pk})
+
 
 class UnitAbility(models.Model):
     """A unit ability as per codex."""

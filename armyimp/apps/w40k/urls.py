@@ -11,4 +11,6 @@ urlpatterns = [
          name='landing_page'),
     path(r'army_unit/', views.ArmyUnitListView.as_view(), name='army_unit_list'),
     path(r'army_unit/<int:pk>/', views.ArmyUnitDetailView.as_view(), name='army_unit_detail'),
+    path(r'unit/', views.UnitListView.as_view(), name='unit_list'),
+    path(r'unit/<int:pk>/', views.UnitDetailView.as_view(), name='unit_detail'),
 ]

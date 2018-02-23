@@ -1,0 +1,26 @@
+{% extends 'w40k/base.html' %}
+
+{% block content %}
+<ul>
+	<li>Name: {{ unit.name }}</li>
+	<li>Organization: {{ unit.organization }}</li>
+	<li>Category: {{ unit.category }}</li>
+	<li>Is named character: {{ unit.is_named_character }}</li>
+	<li>Power rating: {{ unit.power_rating }}</li>
+	<li>Model price: {{ unit.model_price }}</li>
+	<li>Max per army: {{ unit.max_per_army }}</li>
+	<li>Minimum amount of models: {{ unit.models_min }}</li>
+	<li>Maximum amount of models: {{ unit.models_max }}</li>
+	{% if unit.transport %}
+		<li>Transport: {{ unit.transport }}</li>
+	{% endif %}
+	{% if unit.abilities %}
+	<li>Abilities:
+		<ul>
+		{% for each in unit.abilities.all %}
+			<li>{{ each }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</ul>
+{% endblock content %}
