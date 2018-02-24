@@ -428,7 +428,7 @@ class ArmyUnit(models.Model):
 
     def get_absolute_url(self):
         """Return this instances canonical url."""
-        return reverse('w40k:armyunit_detail', kwargs={'pk': self.pk})
+        return reverse('w40k:army_unit_detail', kwargs={'pk': self.pk})
 
 
 class ArmyModel(models.Model):
