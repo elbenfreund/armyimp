@@ -1,0 +1,14 @@
+{% extends 'w40k/base.html' %}
+
+{% block content %}
+<h1>Warhammer 40K</h1>
+<h2>Army Management</h2>
+<ul>
+	<li><a href="{% url 'w40k:army_unit_list' %}">List all army units.</a></li>
+</ul>
+
+<h2>Data Management</h2>
+<ul>
+	<li><a href="{% url 'w40k:unit_list' %}">List all units.</a></li>
+</ul>
+{% endblock content %}

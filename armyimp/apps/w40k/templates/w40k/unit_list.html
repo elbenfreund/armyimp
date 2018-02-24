@@ -1,0 +1,11 @@
+{% extends 'w40k/base.html' %}
+
+{% block content %}
+<h1>All units</h1>
+<ul>
+	{% for unit in unit_list %}
+	<li><a href="{{ unit.get_absolute_url }}">{{ unit }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock content %}
+
