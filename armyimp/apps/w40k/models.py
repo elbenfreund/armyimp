@@ -256,6 +256,10 @@ class UnitModel(models.Model):
 
     unit = models.ForeignKey('Unit', related_name='models', on_delete=models.CASCADE)
     profile = models.ForeignKey('ModelProfile', on_delete=models.CASCADE)
+    min_amount = models.PositiveIntegerField(help_text=_(
+        "How many models with this specific setup must the parent unit include at least?"))
+    max_amount = models.PositiveIntegerField(help_text=_(
+        "How many models with this specific setup may the parent unit include at maximum?"))
 
     def __str__(self):
         """Return string representation."""
