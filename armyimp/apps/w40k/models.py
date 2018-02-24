@@ -424,7 +424,11 @@ class ArmyUnit(models.Model):
 
     def __str__(self):
         """Return string representation."""
-        return '{s.unit.name} ({s.army.name})'.format(s=self)
+        if self.name:
+            result = '{s.name} [{s.unit.name} ({s.army.name})]'.format(s=self)
+        else:
+            result = '{s.unit.name} ({s.army.name})'.format(s=self)
+        return result
 
     def get_absolute_url(self):
         """Return this instances canonical url."""
