@@ -446,7 +446,7 @@ class ArmyUnit(models.Model):
 class ArmyModel(models.Model):
     """A particular model (e.g. configuration) that is part of a specific unit."""
 
-    unit = models.ForeignKey("ArmyUnit", on_delete=models.CASCADE,
+    unit = models.ForeignKey("ArmyUnit", related_name='models', on_delete=models.CASCADE,
         help_text=_("The specific army unit this model is part of."))
     model = models.ForeignKey("UnitModel", on_delete=models.CASCADE,
         help_text=_("The 'generic unit model' that is the 'template' for this specific model."))
