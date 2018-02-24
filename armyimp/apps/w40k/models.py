@@ -256,6 +256,8 @@ class UnitModel(models.Model):
 
     unit = models.ForeignKey('Unit', related_name='models', on_delete=models.CASCADE)
     profile = models.ForeignKey('ModelProfile', on_delete=models.CASCADE)
+    name_suffix = models.CharField(max_length=80, blank=True,
+        help_text=_("Identifier for this particular configuration."))
     min_amount = models.PositiveIntegerField(help_text=_(
         "How many models with this specific setup must the parent unit include at least?"))
     max_amount = models.PositiveIntegerField(help_text=_(
@@ -268,7 +270,11 @@ class UnitModel(models.Model):
     @property
     def name(self):
         """Return this models name."""
-        return self.profile.name
+        if not self.name_suffix:
+            result = self.profile.name
+        else:
+            result = '{s.profile.name} ({s.name_suffix})'.format(s=self)
+        return result
 
 
 class ModelProfile(models.Model):
