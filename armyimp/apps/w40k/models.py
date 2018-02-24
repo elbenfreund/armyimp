@@ -254,7 +254,7 @@ class UnitModel(models.Model):
         Also note: A models price (without items) is defined by its ``Unit``.
     """
 
-    unit = models.ForeignKey('Unit', related_name='models_included', on_delete=models.CASCADE)
+    unit = models.ForeignKey('Unit', related_name='models', on_delete=models.CASCADE)
     profile = models.ForeignKey('ModelProfile', on_delete=models.CASCADE)
 
     def __str__(self):
