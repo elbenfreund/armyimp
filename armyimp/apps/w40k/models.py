@@ -429,8 +429,6 @@ class ArmyUnit(models.Model):
     name = models.CharField(max_length=100, blank=True, unique=True)
     unit = models.ForeignKey("Unit", on_delete=models.CASCADE,
         help_text=_("The 'unittemplate' this unit is an instance of."))
-    models = models.ManyToManyField('ArmyModel',
-        help_text=_("The particular models (e.g. configurations present in this unit."))
 
     def __str__(self):
         """Return string representation."""
