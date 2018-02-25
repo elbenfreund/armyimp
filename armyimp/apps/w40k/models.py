@@ -84,9 +84,15 @@ class Item(models.Model):
     name = models.CharField(max_length=100, unique=True)
     comment = models.TextField(blank=True)
 
+    objects = managers.ItemManager()
+
     def __str__(self):
         """Return string representation."""
         return '{s.name}'.format(s=self)
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
     @property
     def per_organization_details(self):

@@ -26,3 +26,12 @@ class TestWeaponProfile():
         min, max = weapon_profile.damage
         assert min == weapon_profile.damage_min
         assert max == weapon_profile.damage_max
+
+
+@pytest.mark.django_db
+class TestItem():
+    """Unit tests for the ``Item`` model."""
+
+    def test_natural_key(self, item):
+        """Test that the returned natural key is the instances name."""
+        assert item.natural_key() == (item.name,)
