@@ -46,3 +46,12 @@ class TestOrganizationItemIntermediate():
         expectation = (organization_item_intermediate.organization,
             organization_item_intermediate.item)
         assert organization_item_intermediate.natural_key() == expectation
+
+
+@pytest.mark.django_db
+class TestOrganization():
+    """Unit tests for the ``Organization`` model."""
+
+    def test_natural_key(self, organization):
+        """Test that the returned natural key is the instances name."""
+        assert organization.natural_key() == (organization.name,)

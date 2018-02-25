@@ -32,3 +32,13 @@ class TestOrganizationIntermediateManager():
         key = (organization_item_intermediate.organization, organization_item_intermediate.item)
         assert models.OrganizationItemIntermediate.objects.get_by_natural_key(*key) == (
             organization_item_intermediate)
+
+
+@pytest.mark.django_db
+class TestOrganizationManager():
+    """Unit tests for ``OrganizationManager``."""
+
+    def test_get_by_natural_key(self, organization):
+        """Test that the returned instance is the correct one."""
+        key = (organization.name,)
+        assert models.Organization.objects.get_by_natural_key(*key) == organization

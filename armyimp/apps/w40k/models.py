@@ -172,12 +172,18 @@ class Organization(models.Model):
         help_text=_("These are all items accessible to any unit of that organization.")
     )
 
+    objects = managers.OrganizationManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class WargearList(models.Model):
