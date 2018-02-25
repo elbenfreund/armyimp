@@ -4,7 +4,10 @@
 <h1>All units</h1>
 <ul>
 	{% for unit in unit_list %}
-	<li><a href="{{ unit.get_absolute_url }}">{{ unit }}</a></li>
+	<li>
+		<a href="{{ unit.get_absolute_url }}">{{ unit }}</a>
+		<a href="{% url 'w40k:army_unit_create' %}?unit={{ unit.pk }}">[Add to existing army]</a>
+	</li>
 	{% endfor %}
 </ul>
 {% endblock content %}

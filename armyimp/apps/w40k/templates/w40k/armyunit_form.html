@@ -1,0 +1,42 @@
+{% extends 'w40k/base.html' %}
+
+{% block content %}
+<h1>Create a new army unit</h1>
+
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.unit }}
+	<p>{{ form.non_field_errors}}</p>
+	<p>
+		<label for="{{ form.army.id_for_label }}">Army:</label>
+		{{ form.army }}
+		{{ form.army.errors }}
+	</p>
+	<p>
+		<label for="{{ form.name.id_for_label }}">Name:</label>
+		{{ form.name }}
+		{{ form.name.errors }}
+	</p>
+
+<hr>
+
+{% if unit %}
+	<h2>Models</h2>
+
+	{{ army_model_formset.management_form }}
+	<div id="models">
+	<p>{{ army_model_formset.non_field_errors }}</p>
+	{% for form in  army_model_formset %}
+		<p>
+			<label for="{{ form.model.id_for_label }}">Model:</label>
+			{{ form.model }}
+			{{ form.model.errors }}
+		</p>
+	{% endfor %}
+	</div>
+{% endif %}
+
+	<input type="submit">
+</form>
+{% endblock content %}
