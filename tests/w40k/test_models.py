@@ -65,3 +65,12 @@ class TestWargearList():
         """Test that the returned natural key is the instances name."""
         expectation = (wargear_list.name, wargear_list.organization)
         assert wargear_list.natural_key() == expectation
+
+
+@pytest.mark.django_db
+class TestModelProfile():
+    """Unit tests for the ``ModelProfile`` model."""
+
+    def test_natural_key(self, model_profile):
+        """Test that the returned natural key is the instances name."""
+        assert model_profile.natural_key() == (model_profile.name,)

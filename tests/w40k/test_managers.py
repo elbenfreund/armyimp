@@ -42,3 +42,13 @@ class TestOrganizationManager():
         """Test that the returned instance is the correct one."""
         key = (organization.name,)
         assert models.Organization.objects.get_by_natural_key(*key) == organization
+
+
+@pytest.mark.django_db
+class TestModelProfileManager():
+    """Unit tests for ``ModelProfile``."""
+
+    def test_get_by_natural_key(self, model_profile):
+        """Test that the returned instance is the correct one."""
+        key = (model_profile.name,)
+        assert models.ModelProfile.objects.get_by_natural_key(*key) == model_profile

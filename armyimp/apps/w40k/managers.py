@@ -39,3 +39,11 @@ class WargearListManager(models.Manager):
     def get_by_natural_key(self, name, organization):
         """Return an instance by its natural key."""
         return self.get(name=name, organization=organization)
+
+
+class ModelProfileManager(models.Manager):
+    """Custom manager class for ``ModelProfile``."""
+
+    def get_by_natural_key(self, name):
+        """Return an instance by its natural key."""
+        return self.get(name=name)
