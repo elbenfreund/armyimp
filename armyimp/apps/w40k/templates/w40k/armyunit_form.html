@@ -25,10 +25,11 @@
 	<h2>Models</h2>
 
 	{{ army_model_formset.management_form }}
+	<p>{{ army_model_formset.non_form_errors }}</p>
 	<div id="models">
-	<p>{{ army_model_formset.non_field_errors }}</p>
 	{% for form in  army_model_formset %}
 		<p>
+			<p>{{ form.non_field_errors }}</p>
 			<label for="{{ form.model.id_for_label }}">Model:</label>
 			{{ form.model }}
 			{{ form.model.errors }}
