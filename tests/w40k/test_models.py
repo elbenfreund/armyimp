@@ -5,6 +5,10 @@ import pytest
 class TestWeaponProfile():
     """Unit tests for the ``WeaponProfile`` model."""
 
+    def test_natural_key(self, weapon_profile):
+        """Test that the returned natural key is the instances name."""
+        assert weapon_profile.natural_key() == (weapon_profile.name,)
+
     def test_number_of_attacks_property(self, weapon_profile):
         """Test that the returned tuple values are correct."""
         min, max = weapon_profile.number_of_attacks

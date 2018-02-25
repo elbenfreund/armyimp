@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
+from . import managers
+
 RangeTuple = namedtuple('RangeTuple', ('min', 'max'))
 
 # The way we handle constrains for what items a model in a unit may take/swap is
@@ -50,9 +52,15 @@ class WeaponProfile(models.Model):
     damage_max = models.PositiveIntegerField()
     comments = models.TextField(blank=True)
 
+    objects = managers.WeaponProfileManager()
+
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
     @property
     def number_of_attacks(self):
