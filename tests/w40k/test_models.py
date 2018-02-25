@@ -5,6 +5,12 @@ import pytest
 class TestWeaponProfile():
     """Unit tests for the ``WeaponProfile`` model."""
 
+    def test_number_of_attacks_property(self, weapon_profile):
+        """Test that the returned tuple values are correct."""
+        min, max = weapon_profile.number_of_attacks
+        assert min == weapon_profile.number_of_attacks_min
+        assert max == weapon_profile.number_of_attacks_max
+
     def test_strength_property(self, weapon_profile):
         """Test that the returned tuple values are correct."""
         min, max = weapon_profile.strength

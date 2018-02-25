@@ -41,7 +41,8 @@ class WeaponProfile(models.Model):
         choices=[(each, each) for each in ATTACK_TYPES],
         max_length=20, help_text=_("This specifies which attack specific extra rules apply.")
     )
-    number_of_attacks = models.CharField(max_length=5, null=False, blank=False)
+    number_of_attacks_min = models.PositiveIntegerField()
+    number_of_attacks_max = models.PositiveIntegerField()
     strength_min = models.PositiveIntegerField()
     strength_max = models.PositiveIntegerField()
     armor_penetration = models.IntegerField(null=True, blank=True)
@@ -52,6 +53,11 @@ class WeaponProfile(models.Model):
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    @property
+    def number_of_attacks(self):
+        """Return this profile's number of attacks."""
+        return RangeTuple(min=self.number_of_attacks_min, max=self.number_of_attacks_max)
 
     @property
     def strength(self):
