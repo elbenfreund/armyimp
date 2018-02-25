@@ -4,8 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-Damagerange = namedtuple('Damagerange', ('min', 'max'))
-
+RangeTuple = namedtuple('RangeTuple', ('min', 'max'))
 
 # The way we handle constrains for what items a model in a unit may take/swap is
 # by having those options/constrains represented on *a specific* model. That
@@ -36,29 +35,19 @@ class WeaponProfile(models.Model):
     name = models.CharField(max_length=100, unique=True)
     weapon = models.ForeignKey('Item', related_name='weapon_profiles', on_delete=models.CASCADE)
     category = models.CharField(choices=ITEM_CATEGORIES, max_length=20)
-    min_range = models.PositiveIntegerField(null=True, blank=True)
-    max_range = models.PositiveIntegerField(null=True, blank=True)
+    range_min = models.PositiveIntegerField(null=True, blank=True)
+    range_max = models.PositiveIntegerField(null=True, blank=True)
     attack_type = models.CharField(
         choices=[(each, each) for each in ATTACK_TYPES],
         max_length=20, help_text=_("This specifies which attack specific extra rules apply.")
     )
-    number_of_attacks = models.CharField(max_length=5, null=False, blank=False)
-    _strength_value = models.IntegerField(null=True, blank=True,
-        help_text=_("Fix STRENGTH value."))
-    _strength_multiplier = models.IntegerField(null=True, blank=True,
-        help_text=_("Multiplier for effective STRENGTH value."))
-    _strength_user = models.BooleanField(
-        help_text=_("Set to TRUE if the STRENGTH is determined by the USER."))
+    number_of_attacks_min = models.PositiveIntegerField()
+    number_of_attacks_max = models.PositiveIntegerField()
+    strength_min = models.PositiveIntegerField()
+    strength_max = models.PositiveIntegerField()
     armor_penetration = models.IntegerField(null=True, blank=True)
-    _damage_value = models.IntegerField(null=True, blank=True,
-        help_text=_("Use this if the profile deals a fixed amount of DAMAGE."))
-    _damage_die_type = models.IntegerField(
-        choices=[(each, 'W{}'.format(each)) for each in DIE_TYPES],
-        null=True, blank=True,
-        help_text=_("Use his to specify which type of die is used, if any."))
-    _damage_dice_amount = models.IntegerField(null=True, blank=True,
-        help_text=_("Use thisi to specify how many die are used, if any."))
-
+    damage_min = models.PositiveIntegerField()
+    damage_max = models.PositiveIntegerField()
     comments = models.TextField(blank=True)
 
     def __str__(self):
@@ -66,66 +55,19 @@ class WeaponProfile(models.Model):
         return self.name
 
     @property
+    def number_of_attacks(self):
+        """Return this profile's number of attacks."""
+        return RangeTuple(min=self.number_of_attacks_min, max=self.number_of_attacks_max)
+
+    @property
     def strength(self):
-        """
-        Return this profile's effective STRENGTH value.
-
-        Returns:
-            string: Either the fix STRENGTH value, the multiplier or 'User'.
-
-        Raises:
-            ValueError: If more than one of the relevant private attributes has
-            been populated with a value.
-
-        Note:
-            This is is exactly *one* of ``self.strength_value/multiplier/user``.
-        """
-        values = [bool(each) for each in (self._strength_value,
-            self._strength_multiplier, self._strength_user)]
-
-        if values.count(True) > 1:
-            raise ValueError(_("More than one STRENGTH related attribute has been provided!"))
-
-        if self._strength_value:
-            result = str(self._strength_value)
-        elif self._strength_multiplier:
-            result = str(self._strength_multiplier)
-        elif self._strength_user:
-            result = _("User")
-        elif values.count(True) == 0:
-            raise ValueError(_("No STRENGTH related attribute has been provided!"))
-        return result
+        """Return this profile's strength."""
+        return RangeTuple(min=self.strength_min, max=self.strength_max)
 
     @property
     def damage(self):
-        """
-        Return this profile's damage.
-
-        Returns:
-            int or tuple: Either a fixed value as an integer or a min/max tuple in
-                case the damage is a range (due to being dice-based).
-
-        Raises:
-            ValueError: If a fixed and dice based values are present.
-            ValueError: If only one of ``_damage_die_type`` and ``_damage_dice_amount`` is present.
-        """
-        def get_damage_range(die_type, dice_amount):
-            min_ = dice_amount
-            max_ = dice_amount * die_type
-            return Damagerange(min_, max_)
-
-        if self._damage_value and (self._damage_die_type or self._damage_dice_amount):
-            raise ValueError(_("Fixed as well as die based damage has been provided!"))
-        if not (self._damage_die_type and self._damage_dice_amount):
-            raise ValueError(
-                _("In case of die based damage 'die_type' and 'dice_amount' need to be provided.")
-            )
-
-        if self._damage_value:
-            result = self._damage_value
-        else:
-            result = get_damage_range(self._damage_die_type, self._damage_dice_amount)
-        return result
+        """Return this profile's damage."""
+        return RangeTuple(min=self.damage_min, max=self.damage_max)
 
 
 class Item(models.Model):

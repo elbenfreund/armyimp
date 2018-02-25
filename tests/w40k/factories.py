@@ -91,3 +91,32 @@ class ArmyModelFactory(DjangoModelFactory):
 
     unit = SubFactory(UnitFactory)
     model = SubFactory(UnitModelFactory)
+
+
+class ItemFactory(DjangoModelFactory):
+    """Factory for ``Item`` instances."""
+
+    class Meta:
+        model = models.Item
+
+    name = factory.Faker('name')
+
+
+class WeaponProfileFactory(DjangoModelFactory):
+    """Factory for ``WeaponProfile`` instances."""
+
+    class Meta:
+        model = models.WeaponProfile
+
+    name = factory.Faker('name')
+    weapon = SubFactory(ItemFactory)
+    category = models.WeaponProfile.ITEM_CATEGORIES[0][0]
+    range_min = randint(0, 50)
+    range_max = LazyAttribute(lambda s: s.range_min + randint(0, 200))
+    attack_type = models.WeaponProfile.ATTACK_TYPES[0]
+    number_of_attacks_min = randint(1, 4)
+    number_of_attacks_max = LazyAttribute(lambda s: s.number_of_attacks_min + randint(0, 4))
+    strength_min = randint(1, 4)
+    strength_max = LazyAttribute(lambda s: s.strength_min + randint(0, 4))
+    damage_min = randint(1, 4)
+    damage_max = LazyAttribute(lambda s: s.damage_min + randint(0, 4))
