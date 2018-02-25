@@ -62,3 +62,13 @@ class TestUnitManager():
         """Test that the returned instance is the correct one."""
         key = (unit.name,)
         assert models.Unit.objects.get_by_natural_key(*key) == unit
+
+
+@pytest.mark.django_db
+class TestUnitAbilityManager():
+    """Unit tests for ``UnitAbility``."""
+
+    def test_get_by_natural_key(self, unit_ability):
+        """Test that the returned instance is the correct one."""
+        key = (unit_ability.name,)
+        assert models.UnitAbility.objects.get_by_natural_key(*key) == unit_ability

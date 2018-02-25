@@ -141,3 +141,12 @@ class WargearListFactory(DjangoModelFactory):
 
     name = models.WargearList.WARGEAR_LISTS[0]
     organization = SubFactory(OrganizationFactory)
+
+
+class UnitAbilityFactory(DjangoModelFactory):
+    """Factory for ``UnitAbility`` instances."""
+
+    class Meta:
+        model = models.UnitAbility
+
+    name = factory.Faker('name')

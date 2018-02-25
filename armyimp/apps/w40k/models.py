@@ -366,12 +366,18 @@ class UnitAbility(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
 
+    objects = managers.UnitAbilityManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class UnitKeyword(models.Model):

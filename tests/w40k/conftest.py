@@ -16,6 +16,7 @@ register(factories.ItemFactory)
 register(factories.OrganizationItemIntermediateFactory)
 register(factories.WeaponProfileFactory)
 register(factories.WargearListFactory)
+register(factories.UnitAbilityFactory)
 
 
 @pytest.fixture(scope='function')
