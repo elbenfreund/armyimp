@@ -35,8 +35,8 @@ class WeaponProfile(models.Model):
     name = models.CharField(max_length=100, unique=True)
     weapon = models.ForeignKey('Item', related_name='weapon_profiles', on_delete=models.CASCADE)
     category = models.CharField(choices=ITEM_CATEGORIES, max_length=20)
-    min_range = models.PositiveIntegerField(null=True, blank=True)
-    max_range = models.PositiveIntegerField(null=True, blank=True)
+    range_min = models.PositiveIntegerField(null=True, blank=True)
+    range_max = models.PositiveIntegerField(null=True, blank=True)
     attack_type = models.CharField(
         choices=[(each, each) for each in ATTACK_TYPES],
         max_length=20, help_text=_("This specifies which attack specific extra rules apply.")

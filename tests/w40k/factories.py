@@ -111,8 +111,8 @@ class WeaponProfileFactory(DjangoModelFactory):
     name = factory.Faker('name')
     weapon = SubFactory(ItemFactory)
     category = models.WeaponProfile.ITEM_CATEGORIES[0][0]
-    min_range = randint(0, 50)
-    max_range = LazyAttribute(lambda s: s.min_range + randint(0, 200))
+    range_min = randint(0, 50)
+    range_max = LazyAttribute(lambda s: s.range_min + randint(0, 200))
     attack_type = models.WeaponProfile.ATTACK_TYPES[0]
     number_of_attacks_min = randint(1, 4)
     number_of_attacks_max = LazyAttribute(lambda s: s.number_of_attacks_min + randint(0, 4))
