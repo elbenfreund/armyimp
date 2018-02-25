@@ -5,8 +5,6 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _
 
 RangeTuple = namedtuple('RangeTuple', ('min', 'max'))
-Damagerange = namedtuple('Damagerange', ('min', 'max'))
-
 
 # The way we handle constrains for what items a model in a unit may take/swap is
 # by having those options/constrains represented on *a specific* model. That
@@ -47,15 +45,8 @@ class WeaponProfile(models.Model):
     strength_min = models.PositiveIntegerField()
     strength_max = models.PositiveIntegerField()
     armor_penetration = models.IntegerField(null=True, blank=True)
-    _damage_value = models.IntegerField(null=True, blank=True,
-        help_text=_("Use this if the profile deals a fixed amount of DAMAGE."))
-    _damage_die_type = models.IntegerField(
-        choices=[(each, 'W{}'.format(each)) for each in DIE_TYPES],
-        null=True, blank=True,
-        help_text=_("Use his to specify which type of die is used, if any."))
-    _damage_dice_amount = models.IntegerField(null=True, blank=True,
-        help_text=_("Use thisi to specify how many die are used, if any."))
-
+    damage_min = models.PositiveIntegerField()
+    damage_max = models.PositiveIntegerField()
     comments = models.TextField(blank=True)
 
     def __str__(self):
@@ -69,34 +60,8 @@ class WeaponProfile(models.Model):
 
     @property
     def damage(self):
-        """
-        Return this profile's damage.
-
-        Returns:
-            int or tuple: Either a fixed value as an integer or a min/max tuple in
-                case the damage is a range (due to being dice-based).
-
-        Raises:
-            ValueError: If a fixed and dice based values are present.
-            ValueError: If only one of ``_damage_die_type`` and ``_damage_dice_amount`` is present.
-        """
-        def get_damage_range(die_type, dice_amount):
-            min_ = dice_amount
-            max_ = dice_amount * die_type
-            return Damagerange(min_, max_)
-
-        if self._damage_value and (self._damage_die_type or self._damage_dice_amount):
-            raise ValueError(_("Fixed as well as die based damage has been provided!"))
-        if not (self._damage_die_type and self._damage_dice_amount):
-            raise ValueError(
-                _("In case of die based damage 'die_type' and 'dice_amount' need to be provided.")
-            )
-
-        if self._damage_value:
-            result = self._damage_value
-        else:
-            result = get_damage_range(self._damage_die_type, self._damage_dice_amount)
-        return result
+        """Return this profile's damage."""
+        return RangeTuple(min=self.damage_min, max=self.damage_max)
 
 
 class Item(models.Model):

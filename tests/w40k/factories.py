@@ -117,3 +117,5 @@ class WeaponProfileFactory(DjangoModelFactory):
     number_of_attacks = randint(1, 10)
     strength_min = randint(1, 4)
     strength_max = LazyAttribute(lambda s: s.strength_min + randint(0, 4))
+    damage_min = randint(1, 4)
+    damage_max = LazyAttribute(lambda s: s.damage_min + randint(0, 4))
