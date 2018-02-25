@@ -79,3 +79,11 @@ class FactionKeywordManager(models.Manager):
     def get_by_natural_key(self, name):
         """Return an instance by its natural key."""
         return self.get(name=name)
+
+
+class ArmyManager(models.Manager):
+    """Custom manager class for ``Army``."""
+
+    def get_by_natural_key(self, name):
+        """Return an instance by its natural key."""
+        return self.get(name=name)
