@@ -82,3 +82,13 @@ class TestUnitKeywordManager():
         """Test that the returned instance is the correct one."""
         key = (unit_keyword.name,)
         assert models.UnitKeyword.objects.get_by_natural_key(*key) == unit_keyword
+
+
+@pytest.mark.django_db
+class TestFactionKeywordManager():
+    """Unit tests for ``FactionKeyword``."""
+
+    def test_get_by_natural_key(self, faction_keyword):
+        """Test that the returned instance is the correct one."""
+        key = (faction_keyword.name,)
+        assert models.FactionKeyword.objects.get_by_natural_key(*key) == faction_keyword

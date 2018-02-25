@@ -159,3 +159,12 @@ class UnitKeywordFactory(DjangoModelFactory):
         model = models.UnitKeyword
 
     name = factory.Faker('name')
+
+
+class FactionKeywordFactory(DjangoModelFactory):
+    """Factory for ``FactionKeyword`` instances."""
+
+    class Meta:
+        model = models.FactionKeyword
+
+    name = factory.Faker('name')

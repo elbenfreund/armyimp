@@ -101,3 +101,12 @@ class TestUnitKeyword():
     def test_natural_key(self, unit_keyword):
         """Test that the returned natural key is the instances name."""
         assert unit_keyword.natural_key() == (unit_keyword.name,)
+
+
+@pytest.mark.django_db
+class TestFactionKeyword():
+    """Unit tests for the ``FactionKeyword`` model."""
+
+    def test_natural_key(self, faction_keyword):
+        """Test that the returned natural key is the instances name."""
+        assert faction_keyword.natural_key() == (faction_keyword.name,)
