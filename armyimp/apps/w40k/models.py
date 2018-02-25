@@ -254,8 +254,14 @@ class UnitModel(models.Model):
         Also note: A models price (without items) is defined by its ``Unit``.
     """
 
-    unit = models.ForeignKey('Unit', related_name='models_included', on_delete=models.CASCADE)
+    unit = models.ForeignKey('Unit', related_name='models', on_delete=models.CASCADE)
     profile = models.ForeignKey('ModelProfile', on_delete=models.CASCADE)
+    name_suffix = models.CharField(max_length=80, blank=True,
+        help_text=_("Identifier for this particular configuration."))
+    min_amount = models.PositiveIntegerField(help_text=_(
+        "How many models with this specific setup must the parent unit include at least?"))
+    max_amount = models.PositiveIntegerField(help_text=_(
+        "How many models with this specific setup may the parent unit include at maximum?"))
 
     def __str__(self):
         """Return string representation."""
@@ -264,7 +270,11 @@ class UnitModel(models.Model):
     @property
     def name(self):
         """Return this models name."""
-        return self.profile.name
+        if not self.name_suffix:
+            result = self.profile.name
+        else:
+            result = '{s.profile.name} ({s.name_suffix})'.format(s=self)
+        return result
 
 
 class ModelProfile(models.Model):
@@ -419,22 +429,24 @@ class ArmyUnit(models.Model):
     name = models.CharField(max_length=100, blank=True, unique=True)
     unit = models.ForeignKey("Unit", on_delete=models.CASCADE,
         help_text=_("The 'unittemplate' this unit is an instance of."))
-    models = models.ManyToManyField('ArmyModel',
-        help_text=_("The particular models (e.g. configurations present in this unit."))
 
     def __str__(self):
         """Return string representation."""
-        return '{s.unit.name} ({s.army.name})'.format(s=self)
+        if self.name:
+            result = '{s.name} [{s.unit.name} ({s.army.name})]'.format(s=self)
+        else:
+            result = '{s.unit.name} ({s.army.name})'.format(s=self)
+        return result
 
     def get_absolute_url(self):
         """Return this instances canonical url."""
-        return reverse('w40k:armyunit_detail', kwargs={'pk': self.pk})
+        return reverse('w40k:army_unit_detail', kwargs={'pk': self.pk})
 
 
 class ArmyModel(models.Model):
     """A particular model (e.g. configuration) that is part of a specific unit."""
 
-    unit = models.ForeignKey("ArmyUnit", on_delete=models.CASCADE,
+    unit = models.ForeignKey("ArmyUnit", related_name='models', on_delete=models.CASCADE,
         help_text=_("The specific army unit this model is part of."))
     model = models.ForeignKey("UnitModel", on_delete=models.CASCADE,
         help_text=_("The 'generic unit model' that is the 'template' for this specific model."))

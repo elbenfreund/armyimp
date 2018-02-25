@@ -6,4 +6,13 @@
 	<li>Army: {{ unit.army }}</li>
 	<li>Unit: {{ unit.unit }}</li>
 </ul>
+
+<h2>Models</h2>
+<ul>
+{% for model in unit.models.all %}
+	<li>{{ model }}</li>
+{% endfor %}
+</ul>
+
+
 {% endblock content %}
