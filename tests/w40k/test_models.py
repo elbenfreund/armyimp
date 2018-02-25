@@ -55,3 +55,13 @@ class TestOrganization():
     def test_natural_key(self, organization):
         """Test that the returned natural key is the instances name."""
         assert organization.natural_key() == (organization.name,)
+
+
+@pytest.mark.django_db
+class TestWargearList():
+    """Unit tests for the ``WargearList`` model."""
+
+    def test_natural_key(self, wargear_list):
+        """Test that the returned natural key is the instances name."""
+        expectation = (wargear_list.name, wargear_list.organization)
+        assert wargear_list.natural_key() == expectation

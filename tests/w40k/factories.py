@@ -131,3 +131,13 @@ class WeaponProfileFactory(DjangoModelFactory):
     strength_max = LazyAttribute(lambda s: s.strength_min + randint(0, 4))
     damage_min = randint(1, 4)
     damage_max = LazyAttribute(lambda s: s.damage_min + randint(0, 4))
+
+
+class WargearListFactory(DjangoModelFactory):
+    """Factory for ``WargearList`` instances."""
+
+    class Meta:
+        model = models.WargearList
+
+    name = models.WargearList.WARGEAR_LISTS[0]
+    organization = SubFactory(OrganizationFactory)

@@ -203,9 +203,18 @@ class WargearList(models.Model):
     organization = models.ForeignKey('Organization', on_delete=models.CASCADE)
     items = models.ManyToManyField('Item', related_name='wargear_lists')
 
+    objects = managers.WargearListManager()
+
+    class Meta:
+        unique_together = ('name', 'organization')
+
     def __str__(self):
         """Return string representation."""
         return '{s.name} {s.organization} Weapons'.format(s=self)
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name, self.organization)
 
 
 class UnitModel(models.Model):
