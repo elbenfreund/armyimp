@@ -102,6 +102,17 @@ class ItemFactory(DjangoModelFactory):
     name = factory.Faker('name')
 
 
+class OrganizationItemIntermediateFactory(DjangoModelFactory):
+    """Factory for ``OrganizationItemIntermediate`` instances."""
+
+    class Meta:
+        model = models.OrganizationItemIntermediate
+
+    organization = SubFactory(OrganizationFactory)
+    item = SubFactory(ItemFactory)
+    price = randint(0, 300)
+
+
 class WeaponProfileFactory(DjangoModelFactory):
     """Factory for ``WeaponProfile`` instances."""
 
@@ -120,3 +131,40 @@ class WeaponProfileFactory(DjangoModelFactory):
     strength_max = LazyAttribute(lambda s: s.strength_min + randint(0, 4))
     damage_min = randint(1, 4)
     damage_max = LazyAttribute(lambda s: s.damage_min + randint(0, 4))
+
+
+class WargearListFactory(DjangoModelFactory):
+    """Factory for ``WargearList`` instances."""
+
+    class Meta:
+        model = models.WargearList
+
+    name = models.WargearList.WARGEAR_LISTS[0]
+    organization = SubFactory(OrganizationFactory)
+
+
+class UnitAbilityFactory(DjangoModelFactory):
+    """Factory for ``UnitAbility`` instances."""
+
+    class Meta:
+        model = models.UnitAbility
+
+    name = factory.Faker('name')
+
+
+class UnitKeywordFactory(DjangoModelFactory):
+    """Factory for ``UnitKeyword`` instances."""
+
+    class Meta:
+        model = models.UnitKeyword
+
+    name = factory.Faker('name')
+
+
+class FactionKeywordFactory(DjangoModelFactory):
+    """Factory for ``FactionKeyword`` instances."""
+
+    class Meta:
+        model = models.FactionKeyword
+
+    name = factory.Faker('name')

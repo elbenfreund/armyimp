@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
+from . import managers
+
 RangeTuple = namedtuple('RangeTuple', ('min', 'max'))
 
 # The way we handle constrains for what items a model in a unit may take/swap is
@@ -50,9 +52,15 @@ class WeaponProfile(models.Model):
     damage_max = models.PositiveIntegerField()
     comments = models.TextField(blank=True)
 
+    objects = managers.WeaponProfileManager()
+
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
     @property
     def number_of_attacks(self):
@@ -76,9 +84,15 @@ class Item(models.Model):
     name = models.CharField(max_length=100, unique=True)
     comment = models.TextField(blank=True)
 
+    objects = managers.ItemManager()
+
     def __str__(self):
         """Return string representation."""
         return '{s.name}'.format(s=self)
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
     @property
     def per_organization_details(self):
@@ -135,12 +149,18 @@ class OrganizationItemIntermediate(models.Model):
         " And need to be paid for just as any other item."
     ))
 
+    objects = managers.OrganizationItemIntermediateManager()
+
     class Meta:
         unique_together = (('organization', 'item'),)
 
     def __str__(self):
         """Return string representation."""
         return '{s.item} ({s.organization})'.format(s=self)
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.organization, self.item)
 
 
 class Organization(models.Model):
@@ -152,12 +172,18 @@ class Organization(models.Model):
         help_text=_("These are all items accessible to any unit of that organization.")
     )
 
+    objects = managers.OrganizationManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class WargearList(models.Model):
@@ -177,9 +203,18 @@ class WargearList(models.Model):
     organization = models.ForeignKey('Organization', on_delete=models.CASCADE)
     items = models.ManyToManyField('Item', related_name='wargear_lists')
 
+    objects = managers.WargearListManager()
+
+    class Meta:
+        unique_together = ('name', 'organization')
+
     def __str__(self):
         """Return string representation."""
         return '{s.name} {s.organization} Weapons'.format(s=self)
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name, self.organization)
 
 
 class UnitModel(models.Model):
@@ -234,12 +269,18 @@ class ModelProfile(models.Model):
     leadership = models.PositiveIntegerField()
     saves = models.PositiveIntegerField()
 
+    objects = managers.ModelProfileManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class ItemSlot(models.Model):
@@ -301,12 +342,18 @@ class Unit(models.Model):
     faction_keywords = models.ManyToManyField('FactionKeyword', blank=True)
     comment = models.TextField(blank=True)
 
+    objects = managers.UnitManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
     def get_absolute_url(self):
         """Return this instances canonical url."""
@@ -319,12 +366,18 @@ class UnitAbility(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
 
+    objects = managers.UnitAbilityManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class UnitKeyword(models.Model):
@@ -332,12 +385,18 @@ class UnitKeyword(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
 
+    objects = managers.UnitKeywordManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class FactionKeyword(models.Model):
@@ -345,6 +404,8 @@ class FactionKeyword(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
 
+    objects = managers.FactionKeywordManager()
+
     class Meta:
         ordering = ('name',)
 
@@ -352,15 +413,25 @@ class FactionKeyword(models.Model):
         """Return string representation."""
         return self.name
 
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
+
 
 class Army(models.Model):
     """A particular army."""
 
     name = models.CharField(max_length=200, unique=True)
 
+    objects = managers.ArmyManager()
+
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class ArmyUnit(models.Model):
