@@ -32,7 +32,6 @@ class WeaponProfile(models.Model):
 
     ITEM_CATEGORIES = (('Ranged', _("Ranged")), ('Melee', _("Melee")))
     ATTACK_TYPES = ('Melee', 'Pistol', 'Rapid Fire', 'Assault', 'Heavy', 'Grenade')
-    DIE_TYPES = (3, 6)
 
     name = models.CharField(max_length=100, unique=True)
     weapon = models.ForeignKey('Item', related_name='weapon_profiles', on_delete=models.CASCADE)
