@@ -92,3 +92,12 @@ class TestUnitAbility():
     def test_natural_key(self, unit_ability):
         """Test that the returned natural key is the instances name."""
         assert unit_ability.natural_key() == (unit_ability.name,)
+
+
+@pytest.mark.django_db
+class TestUnitKeyword():
+    """Unit tests for the ``UnitKeyword`` model."""
+
+    def test_natural_key(self, unit_keyword):
+        """Test that the returned natural key is the instances name."""
+        assert unit_keyword.natural_key() == (unit_keyword.name,)

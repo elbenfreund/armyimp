@@ -385,12 +385,18 @@ class UnitKeyword(models.Model):
 
     name = models.CharField(max_length=100, unique=True)
 
+    objects = managers.UnitKeywordManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
 
 class FactionKeyword(models.Model):
