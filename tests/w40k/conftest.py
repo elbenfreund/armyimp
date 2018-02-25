@@ -13,6 +13,7 @@ register(factories.ModelProfileFactory)
 register(factories.UnitModelFactory)
 register(factories.ArmyunitFactory)
 register(factories.ItemFactory)
+register(factories.OrganizationItemIntermediateFactory)
 register(factories.WeaponProfileFactory)
 
 

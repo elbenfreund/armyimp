@@ -149,12 +149,18 @@ class OrganizationItemIntermediate(models.Model):
         " And need to be paid for just as any other item."
     ))
 
+    objects = managers.OrganizationItemIntermediateManager()
+
     class Meta:
         unique_together = (('organization', 'item'),)
 
     def __str__(self):
         """Return string representation."""
         return '{s.item} ({s.organization})'.format(s=self)
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.organization, self.item)
 
 
 class Organization(models.Model):

@@ -15,3 +15,11 @@ class ItemManager(models.Manager):
     def get_by_natural_key(self, name):
         """Return an instance by its natural key."""
         return self.get(name=name)
+
+
+class OrganizationItemIntermediateManager(models.Manager):
+    """Custom manager class for ``Item``."""
+
+    def get_by_natural_key(self, organization, item):
+        """Return an instance by its natural key."""
+        return self.get(organization=organization, item=item)

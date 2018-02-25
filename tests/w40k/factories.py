@@ -102,6 +102,17 @@ class ItemFactory(DjangoModelFactory):
     name = factory.Faker('name')
 
 
+class OrganizationItemIntermediateFactory(DjangoModelFactory):
+    """Factory for ``OrganizationItemIntermediate`` instances."""
+
+    class Meta:
+        model = models.OrganizationItemIntermediate
+
+    organization = SubFactory(OrganizationFactory)
+    item = SubFactory(ItemFactory)
+    price = randint(0, 300)
+
+
 class WeaponProfileFactory(DjangoModelFactory):
     """Factory for ``WeaponProfile`` instances."""
 
