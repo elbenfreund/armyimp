@@ -47,3 +47,11 @@ class ModelProfileManager(models.Manager):
     def get_by_natural_key(self, name):
         """Return an instance by its natural key."""
         return self.get(name=name)
+
+
+class UnitManager(models.Manager):
+    """Custom manager class for ``Unit``."""
+
+    def get_by_natural_key(self, name):
+        """Return an instance by its natural key."""
+        return self.get(name=name)

@@ -74,3 +74,12 @@ class TestModelProfile():
     def test_natural_key(self, model_profile):
         """Test that the returned natural key is the instances name."""
         assert model_profile.natural_key() == (model_profile.name,)
+
+
+@pytest.mark.django_db
+class TestUnit():
+    """Unit tests for the ``Unit`` model."""
+
+    def test_natural_key(self, unit):
+        """Test that the returned natural key is the instances name."""
+        assert unit.natural_key() == (unit.name,)

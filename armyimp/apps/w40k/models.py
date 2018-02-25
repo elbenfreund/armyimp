@@ -342,12 +342,18 @@ class Unit(models.Model):
     faction_keywords = models.ManyToManyField('FactionKeyword', blank=True)
     comment = models.TextField(blank=True)
 
+    objects = managers.UnitManager()
+
     class Meta:
         ordering = ('name',)
 
     def __str__(self):
         """Return string representation."""
         return self.name
+
+    def natural_key(self):
+        """Return this instances ``natural_key``."""
+        return (self.name,)
 
     def get_absolute_url(self):
         """Return this instances canonical url."""
