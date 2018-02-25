@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
+RangeTuple = namedtuple('RangeTuple', ('min', 'max'))
 Damagerange = namedtuple('Damagerange', ('min', 'max'))
 
 
@@ -43,12 +44,8 @@ class WeaponProfile(models.Model):
         max_length=20, help_text=_("This specifies which attack specific extra rules apply.")
     )
     number_of_attacks = models.CharField(max_length=5, null=False, blank=False)
-    _strength_value = models.IntegerField(null=True, blank=True,
-        help_text=_("Fix STRENGTH value."))
-    _strength_multiplier = models.IntegerField(null=True, blank=True,
-        help_text=_("Multiplier for effective STRENGTH value."))
-    _strength_user = models.BooleanField(
-        help_text=_("Set to TRUE if the STRENGTH is determined by the USER."))
+    strength_min = models.PositiveIntegerField()
+    strength_max = models.PositiveIntegerField()
     armor_penetration = models.IntegerField(null=True, blank=True)
     _damage_value = models.IntegerField(null=True, blank=True,
         help_text=_("Use this if the profile deals a fixed amount of DAMAGE."))
@@ -67,34 +64,8 @@ class WeaponProfile(models.Model):
 
     @property
     def strength(self):
-        """
-        Return this profile's effective STRENGTH value.
-
-        Returns:
-            string: Either the fix STRENGTH value, the multiplier or 'User'.
-
-        Raises:
-            ValueError: If more than one of the relevant private attributes has
-            been populated with a value.
-
-        Note:
-            This is is exactly *one* of ``self.strength_value/multiplier/user``.
-        """
-        values = [bool(each) for each in (self._strength_value,
-            self._strength_multiplier, self._strength_user)]
-
-        if values.count(True) > 1:
-            raise ValueError(_("More than one STRENGTH related attribute has been provided!"))
-
-        if self._strength_value:
-            result = str(self._strength_value)
-        elif self._strength_multiplier:
-            result = str(self._strength_multiplier)
-        elif self._strength_user:
-            result = _("User")
-        elif values.count(True) == 0:
-            raise ValueError(_("No STRENGTH related attribute has been provided!"))
-        return result
+        """Return this profile's strength."""
+        return RangeTuple(min=self.strength_min, max=self.strength_max)
 
     @property
     def damage(self):
