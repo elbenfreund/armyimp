@@ -1,5 +1,4 @@
 import pytest
-from django.core import exceptions
 from django.urls import reverse
 
 from armyimp.apps.w40k import models
@@ -61,20 +60,6 @@ class TestArmyUnitCreateView():
         response = client.get(reverse('w40k:army_unit_create'), {'unit': unit.pk})
         context_formset = response.context['army_model_formset']
         assert context_formset.extra == unit.models_min
-
-    def test_post_invalid_name(self, client, army_unit_data, army_unit):
-        """Test that providing an non-unique army unit name raises an error."""
-        old_army_unit_count = models.ArmyUnit.objects.all().count()
-        army_unit_data['name'] = army_unit.name
-        response = client.post(reverse('w40k:army_unit_create'), army_unit_data)
-        assert response.status_code == 200
-        assert models.ArmyUnit.objects.all().count() == old_army_unit_count
-        errors = response.context['form'].errors.as_data()
-        assert len(errors) == 1
-        assert len(errors['name']) == 1
-        assert isinstance(errors['name'][0], exceptions.ValidationError)
-        assert not response.context['form'].non_field_errors()
-        assert response.context['army_model_formset'].is_valid()
 
     def test_post_missing_army_model_model(self, client, unit, army_unit_data):
         """Test that a formset form missing a value for ``model`` will raise an error."""

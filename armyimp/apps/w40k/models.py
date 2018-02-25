@@ -368,7 +368,7 @@ class ArmyUnit(models.Model):
 
     army = models.ForeignKey("Army", related_name='units', on_delete=models.CASCADE,
         help_text=_("The army this unit is part of."))
-    name = models.CharField(max_length=100, blank=True, unique=True)
+    name = models.CharField(max_length=100, blank=True)
     unit = models.ForeignKey("Unit", on_delete=models.CASCADE,
         help_text=_("The 'unittemplate' this unit is an instance of."))
 
