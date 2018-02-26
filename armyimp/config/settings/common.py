@@ -187,6 +187,7 @@ class Common(Configuration):
         'django.contrib.admin',
         'django.contrib.admindocs',
         'crispy_forms',
+        'rest_framework',
         'rules.apps.AutodiscoverRulesConfig',
         'nested_admin',
         'armyimp.apps.w40k.apps.W40KConfig',
@@ -207,3 +208,11 @@ class Common(Configuration):
     DEFAULT_FROM_EMAIL = values.EmailValue('elbenfreund@DenkenInEchtzeit.net')
 
     SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+    REST_FRAMEWORK = {
+        # Use Django's standard `django.contrib.auth` permissions,
+        # or allow read-only access for unauthenticated users.
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        ]
+    }
