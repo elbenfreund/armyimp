@@ -61,6 +61,15 @@ class TestArmyUnitCreateView():
         context_formset = response.context['army_model_formset']
         assert context_formset.extra == unit.models_min
 
+    def test_post_valid_data_creates_instances(self, client, unit, army_unit_data):
+        """Test that passing valid data creates the expected instances."""
+        old_army_unit_count = models.ArmyUnit.objects.all().count()
+        old_army_models_count = models.ArmyUnit.objects.all().count()
+        response = client.post(reverse('w40k:army_unit_create'), army_unit_data)
+        assert response.status_code == 302
+        assert models.ArmyUnit.objects.all().count() == old_army_unit_count + 1
+        assert models.ArmyModel.objects.all().count() == old_army_models_count + unit.models_min
+
     def test_post_missing_army_model_model(self, client, unit, army_unit_data):
         """Test that a formset form missing a value for ``model`` will raise an error."""
         model_count = unit.models_min

@@ -27,7 +27,7 @@ class ArmyUnitCreateView(generic_views.CreateView):
     def post(self, request, *args, **kwargs):
         """Use the POST context to fetch the unit."""
         self.add_unit(request.POST)
-        return super().get(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         """
