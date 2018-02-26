@@ -41,7 +41,7 @@ class UnitModelInline(nested_admin.NestedTabularInline):
     """Inline ``UnitModel`` admin representation."""
 
     model = models.UnitModel
-    fields = ('profile',)
+    fields = ('profile', 'name_suffix', 'min_amount', 'max_amount')
     inlines = (ItemSlotInline,)
     extra = 0
 
