@@ -11,7 +11,7 @@ bottle==0.12.13
 bumpversion==0.5.3
 django-debug-toolbar==1.9.1
 django-template-debug==0.3.5
-envdir==1.0.0
+envdir==1.0.1
 flake8==3.5.0
 ipython==6.2.1
 isort==4.3.4
