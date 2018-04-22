@@ -27,7 +27,7 @@ extras_require = {
 requires = [
     'Django==2.0.4',
     'dj-database-url==0.5.0',
-    'django-braces==1.12.0',
+    'django-braces==1.13.0',
     'django-configurations==2.0',
     'django-crispy-forms==1.7.2',
     'django-grappelli==2.11.1',
