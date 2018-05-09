@@ -31,7 +31,7 @@ requires = [
     'django-configurations==2.0',
     'django-crispy-forms==1.7.2',
     'django-grappelli==2.11.1',
-    'django-model-utils==3.1.1',
+    'django-model-utils==3.1.2',
     'django-nested-admin==3.0.21',
     'djangorestframework==3.8.2',
     'envdir==1.0.1',
