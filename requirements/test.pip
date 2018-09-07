@@ -4,7 +4,7 @@
 -r ./forks.pip
 
 coverage==4.5.1
-django-coverage-plugin==1.5.0
+django-coverage-plugin==1.6.0
 fauxfactory==3.0.2
 freezegun==0.3.10
 pytest-django==3.4.2
