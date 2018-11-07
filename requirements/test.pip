@@ -8,6 +8,6 @@ django-coverage-plugin==1.6.0
 fauxfactory==3.0.2
 freezegun==0.3.11
 pytest-django==3.4.3
-pytest-factoryboy==2.0.1
+pytest-factoryboy==2.0.2
 pytest-faker==2.0.0
 pytest==3.10.0
