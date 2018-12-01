@@ -7,7 +7,7 @@
 Werkzeug==0.14.1
 Glances==3.0.2
 # Bottle is required to run Glances in webserver mode
-bottle==0.12.14
+bottle==0.12.15
 bumpversion==0.5.3
 django-debug-toolbar==1.10.1
 django-template-debug==0.3.5
