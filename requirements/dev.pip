@@ -14,7 +14,7 @@ django-template-debug==0.3.5
 envdir==1.0.1
 flake8==3.7.6
 ipython==7.3.0
-isort==4.3.5
+isort==4.3.6
 # Newer versions of pdbpp do not work with Python 3
 # See https://bitbucket.org/antocuni/pdb/issue/45/fails-to-install-on-os-x-1010-python-343
 pdbpp==0.9.6  # rq.filter: !=0.8.2
