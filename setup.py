@@ -36,7 +36,7 @@ requires = [
     'djangorestframework==3.9.2',
     'envdir==1.0.1',
     'psycopg2-binary==2.8.1',
-    'pytz==2018.9',
+    'pytz==2019.1',
     'rules==2.0.1',
 ]
 
