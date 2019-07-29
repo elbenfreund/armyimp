@@ -33,7 +33,7 @@ requires = [
     'django-grappelli==2.13.1',
     'django-model-utils==3.2.0',
     'django-nested-admin==3.2.3',
-    'djangorestframework==3.10.1',
+    'djangorestframework==3.10.2',
     'envdir==1.0.1',
     'psycopg2-binary==2.8.3',
     'pytz==2019.1',
