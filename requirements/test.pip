@@ -3,7 +3,7 @@
 
 -r ./forks.pip
 
-coverage==4.5.4
+coverage==5.0
 django-coverage-plugin==1.6.0
 fauxfactory==3.0.6
 freezegun==0.3.12
