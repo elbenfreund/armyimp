@@ -29,7 +29,7 @@ requires = [
     'dj-database-url==0.5.0',
     'django-braces==1.14.0',
     'django-configurations==2.2',
-    'django-crispy-forms==1.8.1',
+    'django-crispy-forms==1.9.0',
     'django-grappelli==2.14.1',
     'django-model-utils==4.0.0',
     'django-nested-admin==3.2.4',
