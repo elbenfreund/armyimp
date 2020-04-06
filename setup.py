@@ -35,7 +35,7 @@ requires = [
     'django-nested-admin==3.2.4',
     'djangorestframework==3.11.0',
     'envdir==1.0.1',
-    'psycopg2-binary==2.8.4',
+    'psycopg2-binary==2.8.5',
     'pytz==2019.3',
     'rules==2.2',
 ]
