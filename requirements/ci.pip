@@ -1,5 +1,5 @@
 # This file is used for testing on continuous integration servers with tox.
 
-codecov==2.0.22
+codecov==2.1.0
 django-coverage-plugin==1.8.0
 tox==3.15.0
