@@ -32,7 +32,7 @@ requires = [
     'django-crispy-forms==1.9.1',
     'django-grappelli==2.14.2',
     'django-model-utils==4.0.0',
-    'django-nested-admin==3.3.0',
+    'django-nested-admin==3.3.1',
     'djangorestframework==3.11.0',
     'envdir==1.0.1',
     'psycopg2-binary==2.8.5',
