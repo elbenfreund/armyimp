@@ -2,4 +2,4 @@
 
 codecov==2.1.8
 django-coverage-plugin==1.8.0
-tox==3.18.1
+tox==3.19.0
