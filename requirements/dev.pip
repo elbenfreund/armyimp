@@ -19,4 +19,4 @@ isort==5.5.4
 # See https://bitbucket.org/antocuni/pdb/issue/45/fails-to-install-on-os-x-1010-python-343
 pdbpp==0.10.2  # rq.filter: !=0.8.2
 pg-activity==1.6.2
-sqlparse==0.3.1
+sqlparse==0.4.0
