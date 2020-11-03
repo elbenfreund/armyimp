@@ -25,7 +25,7 @@ extras_require = {
 
 
 requires = [
-    'Django==3.1.2',
+    'Django==3.1.3',
     'dj-database-url==0.5.0',
     'django-braces==1.14.0',
     'django-configurations==2.2',
@@ -36,7 +36,7 @@ requires = [
     'djangorestframework==3.12.1',
     'envdir==1.0.1',
     'psycopg2-binary==2.8.6',
-    'pytz==2020.1',
+    'pytz==2020.4',
     'rules==2.2',
 ]
 
