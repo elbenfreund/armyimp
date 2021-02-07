@@ -5,7 +5,7 @@
 -r ./test-local.pip
 
 Werkzeug==1.0.1
-Glances==3.1.6.1
+Glances==3.1.6.2
 # Bottle is required to run Glances in webserver mode
 bottle==0.12.19
 bumpversion==0.6.0
