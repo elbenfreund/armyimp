@@ -30,7 +30,7 @@ requires = [
     'django-braces==1.14.0',
     'django-configurations==2.2',
     'django-crispy-forms==1.11.2',
-    'django-grappelli==2.14.3',
+    'django-grappelli==2.14.4',
     'django-model-utils==4.1.1',
     'django-nested-admin==3.3.3',
     'djangorestframework==3.12.4',
